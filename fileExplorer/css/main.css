@@ -231,7 +231,7 @@ body {
   width: 75%;
 }
 .sidebar {
-  width: 25%; /* Adjust width as needed */
+  width: 25%;
   padding: 1.5rem;
   box-sizing: border-box;
   display: flex;
@@ -248,4 +248,55 @@ body {
 .social-icons img {
   width: 30px;
   height: auto;
+}
+.footer-icons {
+  padding-top: 2rem;
+  display: none;
+}
+@media (max-width: 600px) {
+  .container,
+  .main-content,
+  .sidebar {
+    width: 100%;
+    flex: 100%;
+    padding: 0;
+  }
+  .controls {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .controls > * {
+    flex-basis: auto;
+    margin: 10px;
+  }
+  .main-content {
+    order: 2;
+    padding: 0;
+    padding-top: 2rem;
+    margin: 0;
+  }
+  .social-icons {
+    display: none;
+  }
+  .footer-icons {
+    display: unset;
+    display: block;
+  }
+  .logo {
+    order: 1;
+  }
+  .footer {
+    order: 5;
+  }
+  #file-list,
+  .controls {
+    width: 100%;
+  }
+  .flex-container {
+    flex-direction: column;
+  }
+  .sidebar {
+    margin: 0;
+    padding: 0;
+  }
 }
