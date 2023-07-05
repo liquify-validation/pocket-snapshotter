@@ -86,6 +86,7 @@ hr {
   font-size: 70%;
   margin: 0 0.5rem;
   color: #fff;
+  display: inline-block;
 }
 .file-list .other .file-size,
 .file-list .parent .file-size,
