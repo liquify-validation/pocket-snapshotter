@@ -4,6 +4,9 @@ body > .container:first-child {
 a {
   text-decoration: none;
 }
+hr {
+  display: none;
+}
 .controls select {
   margin-left: 10px;
   padding: 5px;
@@ -261,6 +264,9 @@ body {
     flex: 100%;
     padding: 0;
   }
+  .container {
+    max-width: 85%;
+  }
   .controls {
     flex-wrap: wrap;
     justify-content: center;
@@ -298,5 +304,16 @@ body {
   .sidebar {
     margin: 0;
     padding: 0;
+  }
+  .file-list .file-size {
+    margin: 0 0rem;
+    display: inline-block;
+  }
+  hr {
+    display: unset;
+    border: 1px solid #1c39bb;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 50%;
   }
 }
