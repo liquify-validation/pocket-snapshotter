@@ -28,8 +28,8 @@ function takeZFSSnap() {
     echo "deleting old snap"
     zfs destroy "$ZFS_POOL"
     echo "creating new clone"
-    zfs snapshot "$ZFS_NODE@snap$DATE"
-    zfs clone "$ZFS_NODE@snap$DATE" "$ZFS_POOL"
+    zfs snapshot "$ZFS_NODE@prunesnap$DATE"
+    zfs clone "$ZFS_NODE@prunesnap$DATE" "$ZFS_POOL"
     echo "data DIR cloned too $ZFS_POOL"
 }
 
@@ -38,10 +38,10 @@ function createTars() {
     echo "$POKT_BLOCK"
     echo "$NAS_LOCATION/$POKT_BLOCK-$DATE.tar.lz4"
     cd "/$ZFS_POOL/.pocket"
-    tar -cf - "data/" | lz4 > "$NAS_LOCATION/$POKT_BLOCK-$DATE.tar.lz4"
+    tar -cf - "data/" | lz4 > "$NAS_LOCATION/pruned-$POKT_PRUNE_BLOCK-$POKT_BLOCK-$DATE.tar.lz4"
     echo "pruned-$POKT_PRUNE_BLOCK-$POKT_BLOCK-$DATE.tar.lz4" > $NAS_LOCATION/latest_compressed.txt
     echo "created a compressed data dir"
-    tar -cf "$NAS_LOCATION/$POKT_BLOCK-$DATE.tar" "data/"
+    tar -cf "$NAS_LOCATION/pruned-$POKT_PRUNE_BLOCK-$POKT_BLOCK-$DATE.tar" "data/"
     echo "pruned-$POKT_PRUNE_BLOCK-$POKT_BLOCK-$DATE.tar" > $NAS_LOCATION/latest.txt
     echo "created a uncompressed data dir"
 }
@@ -75,5 +75,6 @@ function removeOld() {
 grabDate
 grabPoktBlock
 takeZFSSnap
+prune
 createTars
 removeOld
