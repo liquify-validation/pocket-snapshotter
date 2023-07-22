@@ -1,5 +1,5 @@
 #!/bin/bash
-  
+
 ZFS_NODE="new-pool/pruned"
 ZFS_POOL="new-pool/prunedSnapshot"
 NAS_LOCATION="/pokt-snap/public/pruned"
@@ -51,8 +51,21 @@ function prune() {
     cd "/$ZFS_POOL/.pocket"
     pruner "$POKT_PRUNE_BLOCK" data application,blockstore,txindexer
 
+    pruner_result=$?
+    if [ $pruner_result -ne 0 ];
+    then
+        echo "pruner failed!"
+        [ -d data/application-new.db ] && rm -rf data/application-new.db
+        [ -d data/blockstore-new.db ] && rm -rf data/blockstore-new.db
+        [ -d data/txindexer-new.db ] && rm -rf data/txindexer-new.db
+        return
+    fi
+
+    rm -rf data/application.db
     mv data/application-new.db data/application.db
+    rm -rf data/blockstore.db
     mv data/blockstore-new.db data/blockstore.db
+    rm -rf data/txindexer.db
     mv data/txindexer-new.db data/txindexer.db
 }
 
